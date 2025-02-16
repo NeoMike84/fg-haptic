@@ -287,7 +287,9 @@ _setlistener("/sim/signals/fdm-initialized", func {
 
 ###
 # Main initialization
-_setlistener("/sim/signals/nasal-dir-initialized", func {
+# Changed from a listener to a function that is called at the end of the script since the
+# /sim/signals/nasal-dir-initialized event doesn't work on modern versions
+var initfunc = func {
 
   # Add default parameters to property tree
   # TODO: Update constants from aircraft setup
@@ -337,4 +339,5 @@ _setlistener("/sim/signals/nasal-dir-initialized", func {
 
   # Set timer for main loop
   settimer(update_forces, update_interval);
-});
+};
+initfunc();
